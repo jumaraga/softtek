@@ -3,15 +3,16 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config';
+import config from './config/config';
+import { FilmModule } from './films/films.module';
 
 @Module({
   imports: [ConfigModule.forRoot({
     isGlobal: true,
+    envFilePath:['.env.local'],
+    load: [config]
   }),
-  HttpModule.register({
-    timeout: 3000,
-    maxRedirects: 3
-  })],
+   FilmModule],
   controllers: [AppController],
   providers: [AppService],
 })

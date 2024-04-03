@@ -14,9 +14,14 @@ package:
 provider:
   name: aws
   stackName: ${self:custom.prefix}-${self:custom.secrets.SHORT_STAGE}
-  runtime: nodejs18.x
   deploymentBucket:
     name: ${self:custom.secrets.DEPLOYMENT_BUCKET}
+  runtime: nodejs18.x
+  ecr:
+    images:
+      appimage:
+        path: 
+        - ./   
   iam:
     role:
       name: dynamo

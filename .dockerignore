@@ -1,0 +1,6 @@
+node_modules
+test
+.env.local
+secrets*.json
+serverless.yaml
+.serverless
