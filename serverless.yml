@@ -1,0 +1,37 @@
+service: SFTK-0001-SWAPI-SWP
+
+custom:
+  secrets: ${file(secrets.json)}
+  prefix: ${self:service}
+package:
+  exclude:
+    - ./node_modules
+    - node_modules/**
+    - nodejs
+    - src/Database/config
+    - secrets*.json
+
+provider:
+  name: aws
+  stackName: ${self:custom.prefix}-${self:custom.secrets.SHORT_STAGE}
+  runtime: nodejs18.x
+  deploymentBucket:
+    name: ${self:custom.secrets.DEPLOYMENT_BUCKET}
+  iam:
+    role:
+      name: dynamo
+      statements:
+        - Effect: Allow
+          Resource: '*'
+          Action: 
+            - dynamo:GetItem
+            - dynamo:UpdateItem
+  timeout: 30
+  stage: ${self:custom.secrets.STAGE}
+
+          
+  
+
+
+
+      
