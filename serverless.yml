@@ -5,11 +5,12 @@ custom:
   prefix: ${self:service}
 package:
   exclude:
-    - ./node_modules
-    - node_modules/**
+    # - ./node_modules
+    # - node_modules/**
     - nodejs
     - src/Database/config
     - secrets*.json
+    - .env*
 
 provider:
   name: aws
@@ -17,11 +18,9 @@ provider:
   deploymentBucket:
     name: ${self:custom.secrets.DEPLOYMENT_BUCKET}
   runtime: nodejs18.x
-  ecr:
-    images:
-      appimage:
-        path: 
-        - ./   
+  environment:
+    DYNAMO_FILMS_TABLE: ${self:custom.secrets.DYNAMO_FILMS_TABLE}
+    SWAPI_HOST: ${self:custom.secrets.SWAPI_HOST}
   iam:
     role:
       name: dynamo
@@ -33,6 +32,23 @@ provider:
             - dynamo:UpdateItem
   timeout: 30
   stage: ${self:custom.secrets.STAGE}
+
+functions:
+  getFilm:
+    name: "${self:custom.prefix}-${self:custom.secrets.SHORT_STAGE}-LA-00-getFilm"
+    events:
+      - http:
+          path: /{proxy+}
+          method: any 
+          cors: true
+    # image: baseimage
+    handler: dist/lambda.handler
+
+
+plugins:
+  - serverless-offline
+  - serverless-jetpack
+
 
           
   

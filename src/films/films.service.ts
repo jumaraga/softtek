@@ -16,7 +16,7 @@ export class FilmService {
          const swapiHost = this.configService.getOrThrow('swapiHost');
          const res = await firstValueFrom(this.httpService.get(`${swapiHost}/films/${id}`));
          return res.data;
-         
+
       } catch (e) {
          console.log(e)
       }

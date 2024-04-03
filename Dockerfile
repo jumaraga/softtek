@@ -11,7 +11,7 @@ COPY tsconfig*.json /home/app
 
 RUN yarn install 
 
-COPY src /home/app
+COPY /src /home/app
 
 RUN yarn build
 
