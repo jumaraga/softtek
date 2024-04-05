@@ -10,15 +10,27 @@ const docClient = DynamoDBDocumentClient.from(client);
 
 @Injectable()
 export class DynamoService {
-   constructor(private readonly  configService: ConfigService) {
+   constructor(private readonly configService: ConfigService) {
 
    }
    async createCharacter(characterData: PeopleDto) {
       const command = new PutCommand({
          TableName: this.configService.get('dynamodb.character'),
          Item: characterData,
-         
+
       });
+      const response = await docClient.send(command);
+      return response;
+   }
+
+   async getCustomizeCharacter(id:string) {
+      const command = new GetCommand({
+         TableName: this.configService.get('dynamodb.character'),
+         Key: {
+            id,
+         },
+      });
+
       const response = await docClient.send(command);
       return response;
    }

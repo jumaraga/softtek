@@ -48,6 +48,11 @@ export class CharacterService {
       return res.data;
    }
 
+   async validateIfCustomizeCharacterExistById(id:string){
+      const item = await this.dynamoService.getCustomizeCharacter(id)
+      return item
+   }
+
 
 
 }

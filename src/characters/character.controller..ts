@@ -15,4 +15,15 @@ export class CharacterController {
       }
    }
 
+   @Get(':id')
+   async getCustomizeCharacter(@Param('id') id:string){
+      const res =await this.peopleService.getCharacterFromFromSWAPI(id);
+      return {
+         message:'customize character return successfully',
+         data:{
+            ...res
+         }
+      }
+   }
+
 }
