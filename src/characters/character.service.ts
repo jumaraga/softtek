@@ -7,7 +7,6 @@ import { firstValueFrom } from 'rxjs';
 import { Console } from 'console';
 import { DynamoService } from 'src/dynamo/dynamo.service';
 import { characterFactory } from './character.factory';
-import { NotCustomizedCharacterFound } from './errors/NotCustomizeCharacterFound.error';
 
 @Injectable()
 export class CharacterService {
@@ -53,7 +52,6 @@ export class CharacterService {
    async getCustomizeCharacter(id:string){
       await this.dynamoService.getCustomizeCharacterToValidate(id)
       const item = await this.dynamoService.getCustomizeCharacter(id)
-      
       return item.Item
    }
 

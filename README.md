@@ -1,17 +1,17 @@
 # tasks
-- [x] co
+
 
 ## Description
+This app is a  technical challenge made for softtek in which we use NestJs to properly manage the API, also this API is deploy to AWS using serverless framework.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
 
-## Installation
-
+# Steps to run the project 
+to install all dependencies needed
 ```bash
 $ yarn install
 ```
 
-## Running the app
+## Running the app locally
 
 ```bash
 # development
@@ -23,25 +23,11 @@ $ yarn run start:dev
 # production mode
 $ yarn run start:prod
 ```
-
-## Test
-
+## Deploying the app
 ```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
+$ yarn serverless deploy
 ```
 
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
 
 ## License
 
