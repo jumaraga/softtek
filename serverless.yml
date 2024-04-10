@@ -44,6 +44,21 @@ functions:
     # image: baseimage
     handler: dist/lambda.handler
 
+resources:
+  Resources:
+    CharactersTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: id
+            AttributeType: S
+        KeySchema:
+          - AttributeName: id
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.prefix}${self:custom.secrets.SHORT_STAGE}-characters
 
 plugins:
   - serverless-offline
