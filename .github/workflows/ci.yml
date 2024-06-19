@@ -1,14 +1,16 @@
-name:
+name: test work flow
 
 on: [push]
 
 jobs:
   build:
+    runs-on: ubuntu-latest
 
-  runs-on: ubuntu-latest
 
-  steps:
-    - uses: actions/checkout@v2
+    steps:
+      - uses: actions/checkout@v2
 
-    - name: test to print variables  
-      run: echo Hello!!! from ${{github.workflow}} triggered by ${{github.actor}} with ${{github.event_name}} event
+
+      - name: test to print variables  
+        run: echo Hello!!! from ${{github.workflow}} triggered by ${{github.actor}} with ${{github.event_name}} event
+
