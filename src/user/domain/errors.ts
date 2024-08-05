@@ -18,3 +18,9 @@ export class INVALID_DOMAIN_ERROR extends HttpException{
       super('Tu correo electronico asociado posee un dominio invalido, comunicate con soporte para cambiarlo',403)
    }
 }
+
+export class USER_EXIST_ERROR extends HttpException{
+   constructor(){
+      super('user already exist',404)
+   }
+}

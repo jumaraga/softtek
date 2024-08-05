@@ -9,11 +9,20 @@ import { DynamoUserRepository } from '../../../src/user/infrastructure/dynamoUse
 import { ColaboradorRepository } from '../../../src/user/domain/repositories/colaborator.repository';
 import { UserRepository } from '../../../src/user/domain/repositories/user.respository';
 import { UserController } from '../../../src/user/user.controller';
-import { NO_COLABORATOR_FOUND_ERROR } from '../../../src/user/domain/errors';
+import { CognitoAuthAdapter } from '../../../src/user/infrastructure/adapter/cognitoAuth.adapter';
+import { AuthPort } from '../../../src/user/domain/port/auth.port';
 beforeAll(() => jest.useFakeTimers())
+const buildSolicitud = (params) => {
+   return REQUEST[params]
+}
+let service: UserService, userRepository: UserRepository, colaboratorRepository: ColaboradorRepository, configService, request, controller: UserController, authAdapter: AuthPort;
 defineFeature(feature, test => {
-   test('Crear usuarios que son colaboradores de la empresa', ({ given, and, when, then }) => {
-      let service: UserService, userRepository: UserRepository, colaboratorRepository: ColaboradorRepository, configService, request, controller: UserController, result;
+   test('Crear users that are working at the company', ({
+      given,
+      and,
+      when,
+      then
+   }) => {
       beforeAll(async () => {
          const module: TestingModule = await Test.createTestingModule({
             providers: [
@@ -25,7 +34,8 @@ defineFeature(feature, test => {
                   },
                },
                UserService,
-               DynamoUserRepository
+               DynamoUserRepository,
+               CognitoAuthAdapter
             ],
             controllers: [UserController]
          }).compile();
@@ -33,38 +43,57 @@ defineFeature(feature, test => {
          service = module.get<UserService>(UserService);
          colaboratorRepository = module.get<ColaboradorRepository>(DynamoColaboradorRepository);
          userRepository = module.get<UserRepository>(DynamoUserRepository);
+         authAdapter = module.get<AuthPort>(CognitoAuthAdapter);
          configService = module.get<ConfigService>(ConfigService);
       })
-
-
-      given(/^Se solicita el servicio en vista de registro (.*)$/, async (arg0) => {
+      given(/^We request the sign up endpoint (.*)$/, (arg0) => {
          request = buildSolicitud(arg0)
       });
 
-      and(/^se obtiene los colaboradores de la empresa (.*)$/, (arg0) => {
-         jest.spyOn(colaboratorRepository, 'find')
-            .mockImplementation(() => MOCK[arg0])
+      and(/^get the colaborators from the company (.*)$/, (arg0) => {
+         mockColaboratorRepository(arg0)
       });
 
-      when('se valida dominio del correo', () => {
-         // validation = jest.spyOn(service, '')
+      and(/^verify if user already exist (.*)$/, (arg0) => {
+         mockAuthProvider(arg0)
       });
 
-      then(/^se crea el usuario (.*)$/, async (arg0) => {
-         jest.spyOn(userRepository, 'save').mockImplementation(async (s) => {
-         })
-         const expectedResult = RESPONSES[arg0];
+      when('validate email domain', () => {
+
+      });
+
+      then(/^the user is created (.*)$/, async (arg0) => {
+         mockUserRepository()
+         const expectedResult = RESPONSES[arg0]
          try {
-            result = await controller.createUser(request);
-            expect(result).toEqual(expectedResult);
+            console.log(request)
+            const actualResult = await controller.createUser(request);
+            expect(actualResult).toEqual(expectedResult);
          } catch (e) {
-            console.log(e, expectedResult)
             expect(() => { throw e }).toThrow(expectedResult)
          }
       });
+
    })
 })
 
-const buildSolicitud = (params) => {
-   return REQUEST[params]
+const mockAuthProvider = (data: string) => {
+   jest.spyOn(authAdapter, 'getUser').mockImplementation(
+      async () => { console.log('SSSSSS',data,MOCK[data]); return MOCK[data] }
+   )
+   jest.spyOn(authAdapter, 'create').mockImplementation(
+      async () => { }
+   )
+}
+
+const mockUserRepository = () => {
+   jest.spyOn(userRepository, 'save').mockImplementationOnce(
+      async (user) => { return }
+   )
+}
+
+const mockColaboratorRepository = (data: string) => {
+   jest.spyOn(colaboratorRepository, 'find').mockImplementationOnce(
+      async (user) => { console.log(data); return MOCK[data] }
+   )
 }

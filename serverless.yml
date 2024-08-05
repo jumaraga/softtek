@@ -71,16 +71,6 @@ resources:
           WriteCapacityUnits: 1
         TableName: ${self:custom.prefix}${self:custom.secrets.SHORT_STAGE}-colaborator
     
-    
-
 plugins:
   - serverless-offline
   - serverless-jetpack
-
-
-          
-  
-
-
-
-      

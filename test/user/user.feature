@@ -1,11 +1,14 @@
 Feature: Create user
   Scenario Outline: Crear users that are working at the company
-    Given Se solicita el servicio en vista de registro <request>
-    And se obtiene los colaboradores de la empresa <colaborador>
-    When se valida dominio del correo
-    Then se crea el usuario <resultado>
+    Given We request the sign up endpoint <request>
+    And get the colaborators from the company <colaborators>
+    And verify if user already exist <user>
+    When validate email domain
+    Then the user is created <resultado>
 
     Examples:
-      | request                                 | colaborador               | resultado                       |
-      | DOCUMENTO_DE_COLABORADOR_ACTIVO         | COLABORADOR_ENCONTRADO    | SUCCESS                         |
-      | DOCUMENTO_NO_PERTENECIENTE_A_LA_EMPRESA | COLABORADOR_NO_ENCONTRADO | ERROR_COLABORADOR_NO_ENCONTRADO |
+      | request               | colaborators               | user           | resultado                   |
+      | COLABORADOR_FOUND     | COLABORADOR_FOUND          | USER_NOT_EXIST | SUCCESS                     |
+      | COLABORADOR_NOT_FOUND | COLABORADOR_NOT_FOUND      | USER_NOT_EXIST | ERROR_COLABORADOR_NOT_FOUND |
+      | COLABORADOR_FOUND     | COLABORADOR_FOUND          | USER_EXIST     | ERROR_USER_EXIST            |
+      | COLABORADOR_FOUND     | COLABORATOR_INVALID_DOMAIN | USER_NOT_EXIST | ERROR_INVALID_DOMAIN        |
