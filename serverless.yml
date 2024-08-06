@@ -15,8 +15,6 @@ package:
 provider:
   name: aws
   stackName: ${self:custom.prefix}-${self:custom.secrets.SHORT_STAGE}
-  deploymentBucket:
-    name: ${self:custom.secrets.DEPLOYMENT_BUCKET}
   runtime: nodejs18.x
   environment:
     DYNAMO_FILMS_TABLE: ${self:custom.secrets.DYNAMO_FILMS_TABLE}
@@ -59,15 +57,20 @@ resources:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
         TableName: ${self:custom.prefix}${self:custom.secrets.SHORT_STAGE}-characters
-
+    ColaboratorsTable:
+      Type: AWS::DynamoDB::Table
+      Properties:
+        AttributeDefinitions:
+          - AttributeName: document
+            AttributeType: S
+        KeySchema:
+          - AttributeName: document
+            KeyType: HASH
+        ProvisionedThroughput:
+          ReadCapacityUnits: 1
+          WriteCapacityUnits: 1
+        TableName: ${self:custom.prefix}${self:custom.secrets.SHORT_STAGE}-colaborator
+    
 plugins:
   - serverless-offline
   - serverless-jetpack
-
-
-          
-  
-
-
-
-      

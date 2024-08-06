@@ -1,0 +1,59 @@
+AWSTemplateFormatVersion: 2010-09-09
+Description: 'State: Environment Client security group, a applying.pe template'
+Parameters:
+  StackNumber:
+    Description: Use to avoid conflicts when deploy various instances of this instance
+      with the same name; <prefix>-[00 | 01 | 02 | ...]-<name>
+    Type: String
+    Default: '00'
+  Name:
+    Type: String
+    Default: agw
+  IdentityProviders:
+    Type: CommaDelimitedList
+    Default: 'COGNITO'
+Resources:
+  CognitoStack:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: !Ref Name
+  UserPoolResourceServer:
+    Type: AWS::Cognito::UserPoolResourceServer
+    Properties:
+      UserPoolId: !Ref CognitoStack
+      Identifier: "default"
+      Name: "default"
+      Scopes:
+        - ScopeName: "default"
+          ScopeDescription: "default scope"
+  UserPoolClient:
+    DependsOn:
+      - UserPoolResourceServer
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      ClientName: !Ref Name
+      RefreshTokenValidity: 30   #30 días The time limit, in days, after which the refresh token is no longer valid and cannot be used
+      AccessTokenValidity: 24     #1 hora  Must be between 5 minutes and 1 day
+      IdTokenValidity: 24         #1 hora  Must be between 5 minutes and 1 day
+      TokenValidityUnits:
+        RefreshToken: days
+        AccessToken: hours
+        IdToken: hours
+      PreventUserExistenceErrors: ENABLED
+      GenerateSecret: false
+      ExplicitAuthFlows:
+        - ALLOW_USER_PASSWORD_AUTH
+        - ALLOW_REFRESH_TOKEN_AUTH
+      AllowedOAuthFlowsUserPoolClient: True
+      AllowedOAuthFlows:
+        - code
+        - implicit
+      SupportedIdentityProviders: !Ref IdentityProviders
+      AllowedOAuthScopes:
+        - "default/default"         #The format is resource-server-identifier/scope
+        - openid
+        - email
+      UserPoolId: !Ref CognitoStack
+      CallbackURLs: 
+        - http://localhost:3000
+      
