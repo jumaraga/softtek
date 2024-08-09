@@ -6,16 +6,28 @@ import config from './shared/config/config';
 import { FilmModule } from './films/films.module';
 import { CharacterModule } from './characters/character.module';
 import { UserModule } from './user/user.module';
+import { EventEmitterModule } from '@nestjs/event-emitter';
+import { RetentionModule } from './retention/retention.module';
 
 @Module({
-  imports: [ConfigModule.forRoot({
-    isGlobal: true,
-    envFilePath: ['.env.local'],
-    load: [config]
-  }),
+  imports: [
+    EventEmitterModule.forRoot({
+      wildcard: false,
+      delimiter: '.',
+      newListener: false,
+      removeListener: false,
+      maxListeners: 10,
+      verboseMemoryLeak: false,
+    }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: ['.env.local'],
+      load: [config]
+    }),
     FilmModule,
     CharacterModule,
-    UserModule],
+    UserModule,
+    RetentionModule],
   controllers: [AppController],
   providers: [AppService],
 })
