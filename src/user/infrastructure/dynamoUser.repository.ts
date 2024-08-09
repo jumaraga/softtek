@@ -3,7 +3,7 @@ import { PutCommand, PutCommandInput } from "@aws-sdk/lib-dynamodb";
 import { ConfigService } from '@nestjs/config';
 import { UserRepository } from '../domain/repositories/user.respository';
 import { User } from '../domain/entities/user.entity';
-import { dynamoClient } from '../../../src/shared/dynamo';
+import { dynamoClient } from 'src/shared/dynamo';
 
 
 @Injectable()

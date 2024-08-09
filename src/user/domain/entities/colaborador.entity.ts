@@ -1,4 +1,4 @@
-interface Colaborador {
+export interface Colaborador {
    firstname: string;
    lastname: string;
    corporativeEmail: string;

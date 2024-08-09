@@ -8,7 +8,7 @@ export class UserController {
 
    ) { }
    
-   @Post()
+   @Post('')
    createUser(@Body('document') document: string) {
       return this.service.registerUser(document)
    }
