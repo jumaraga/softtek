@@ -19,4 +19,7 @@ jobs:
 
       - name: unit test
         run: npm run test
+      
+      - name: deployment
+        run: npm run serverless deploy  
 
