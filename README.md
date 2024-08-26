@@ -2,7 +2,7 @@
 
 
 ## Description
-This app is a  technical challenge made for softtek in which we use NestJs to properly manage the API, also this API is deploy to AWS using serverless framework.
+This is a proyect in which I going to test different concepts and strategies of software engineering, in particular of distributed systems.
 
 
 # Steps to run the project 
@@ -29,6 +29,5 @@ $ yarn serverless deploy
 ```
 
 
-## License
-
-Nest is [MIT licensed](LICENSE).
+# Projections
+ To ejemplify this concept were are going to defined each module as part if a different server so

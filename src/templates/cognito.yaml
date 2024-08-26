@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: 2010-09-09
-Description: 'State: Environment Client security group, a applying.pe template'
+Description: 'Cognito resources use by the proyect'
 Parameters:
   StackNumber:
     Description: Use to avoid conflicts when deploy various instances of this instance

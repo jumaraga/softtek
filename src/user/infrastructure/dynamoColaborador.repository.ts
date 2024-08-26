@@ -2,7 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { GetCommand, GetCommandInput } from "@aws-sdk/lib-dynamodb";
 import { ConfigService } from '@nestjs/config';
 import { ColaboradorRepository } from '../domain/repositories/colaborator.repository';
-import { dynamoClient } from 'src/shared/dynamo';
+import { dynamoClient } from '../../shared/dynamo';
 import { Colaborador } from '../domain/entities/colaborador.entity';
 
 

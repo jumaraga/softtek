@@ -8,6 +8,7 @@ import { CharacterModule } from './characters/character.module';
 import { UserModule } from './user/user.module';
 import { EventEmitterModule } from '@nestjs/event-emitter';
 import { RetentionModule } from './retention/retention.module';
+import { CustomerModule } from './context/backoffice/customer/infrastructure/customer.module';
 
 @Module({
   imports: [
@@ -27,7 +28,8 @@ import { RetentionModule } from './retention/retention.module';
     FilmModule,
     CharacterModule,
     UserModule,
-    RetentionModule],
+    RetentionModule,
+    CustomerModule],
   controllers: [AppController],
   providers: [AppService],
 })
