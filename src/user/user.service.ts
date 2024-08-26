@@ -24,10 +24,10 @@ export class UserService {
       const foundColaborator = await this.colaboratorRepo.find(document);
       if (!foundColaborator) throw new NO_COLABORATOR_FOUND_ERROR;
       const providerUser = await this.authProvider.getUser(document.toString())
-      // if (providerUser?.enabled) throw new USER_EXIST_ERROR
+      if (providerUser?.enabled) throw new USER_EXIST_ERROR
       const user = new User(foundColaborator.document, foundColaborator.document.toString(), foundColaborator.firstname, foundColaborator.lastname, foundColaborator.corporativeEmail);
 
-      // await this.authProvider.create(user);
+      await this.authProvider.create(user);
       await this.userRepo.save(user);
       
       this.eventBus.emit(UserRegisterDomainEvent.eventName, new UserRegisterDomainEvent('s', user.firstname, user.lastname, user.corporativeEmail, 'CAHNGE_PASSWORD'))

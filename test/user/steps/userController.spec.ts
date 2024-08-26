@@ -11,6 +11,7 @@ import { UserRepository } from '../../../src/user/domain/repositories/user.respo
 import { UserController } from '../../../src/user/user.controller';
 import { CognitoAuthAdapter } from '../../../src/user/infrastructure/adapter/cognitoAuth.adapter';
 import { AuthPort } from '../../../src/user/domain/port/auth.port';
+import { EventEmitter2 } from '@nestjs/event-emitter';
 beforeAll(() => jest.useFakeTimers())
 const buildSolicitud = (params) => {
    return REQUEST[params]
@@ -26,6 +27,7 @@ defineFeature(feature, test => {
       beforeAll(async () => {
          const module: TestingModule = await Test.createTestingModule({
             providers: [
+               EventEmitter2,
                DynamoColaboradorRepository,
                {
                   provide: ConfigService,
