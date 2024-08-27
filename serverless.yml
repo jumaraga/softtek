@@ -13,7 +13,7 @@ package:
 
 provider:
   name: aws
-  stackName: ${self:custom.prefix}-${self:custom.secrets.SHORT_STAGE}
+  stackName: ${self:custom.prefix}-${env:SHORT_STAGE}
   runtime: nodejs18.x
   environment:
     DYNAMO_FILMS_TABLE: ${env:DYNAMO_FILMS_TABLE}
@@ -37,11 +37,11 @@ provider:
             - dynamo:GetItem
             - dynamo:UpdateItem
   timeout: 30
-  stage: ${self:custom.secrets.STAGE}
+  stage: ${env:STAGE}
 
 functions:
   getFilm:
-    name: "${self:custom.prefix}-${self:custom.secrets.SHORT_STAGE}-LA-00-getFilm"
+    name: "${self:custom.prefix}-${env:SHORT_STAGE}-LA-00-getFilm"
     events:
       - http:
           path: /{proxy+}
@@ -64,7 +64,7 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: ${self:custom.prefix}${self:custom.secrets.SHORT_STAGE}-characters
+        TableName: ${self:custom.prefix}${env:SHORT_STAGE}-characters
     ColaboratorsTable:
       Type: AWS::DynamoDB::Table
       Properties:
@@ -77,7 +77,7 @@ resources:
         ProvisionedThroughput:
           ReadCapacityUnits: 1
           WriteCapacityUnits: 1
-        TableName: ${self:custom.prefix}${self:custom.secrets.SHORT_STAGE}-colaborator
+        TableName: ${self:custom.prefix}${env:SHORT_STAGE}-colaborator
     
 plugins:
   - serverless-offline
