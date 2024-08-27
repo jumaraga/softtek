@@ -10,7 +10,7 @@ package:
     - src/Database/config
     - secrets*.json
     - .env*
-
+useDotenv: true 
 provider:
   name: aws
   stackName: ${self:custom.prefix}-${env:SHORT_STAGE}
