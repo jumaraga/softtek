@@ -37,7 +37,7 @@ provider:
             - dynamo:GetItem
             - dynamo:UpdateItem
   timeout: 30
-  stage: ${env:STAGE}
+  stage: dev
 
 functions:
   getFilm:
