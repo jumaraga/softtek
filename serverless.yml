@@ -1,7 +1,6 @@
 service: SFTK-0001-SWAPI-SWP
 
 custom:
-  secrets: ${file(secrets.json)}
   prefix: ${self:service}
 package:
   exclude:
