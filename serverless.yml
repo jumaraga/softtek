@@ -17,8 +17,17 @@ provider:
   stackName: ${self:custom.prefix}-${self:custom.secrets.SHORT_STAGE}
   runtime: nodejs18.x
   environment:
-    DYNAMO_FILMS_TABLE: ${self:custom.secrets.DYNAMO_FILMS_TABLE}
-    SWAPI_HOST: ${self:custom.secrets.SWAPI_HOST}
+    DYNAMO_FILMS_TABLE: ${env:DYNAMO_FILMS_TABLE}
+    SWAPI_HOST: ${env:SWAPI_HOST}
+    COLABORATOR_TABLE: ${env:COLABORATOR_TABLE}
+    DYNAMO_USER_TABLE: ${env:DYNAMO_USER_TABLE}
+    REGION: ${env:REGION}
+    COGNITO_USER_POOL_ID: ${env:COGNITO_USER_POOL_ID}
+    COGNITO_USER_POOL_CLIENT: ${env:COGNITO_USER_POOL_CLIENT}
+    EMAIL_USER: ${env:EMAIL_USER}
+    EMAIL_PASS: ${env:EMAIL_PASS}
+    EMAIL_HOST: ${env:EMAIL_HOST}
+    EMAIL_PORT: ${env:EMAIL_PORT}
   iam:
     role:
       name: dynamo
