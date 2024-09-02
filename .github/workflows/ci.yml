@@ -12,7 +12,7 @@ jobs:
 
 
       - name: test to print variables  
-        run: echo Hello!!! from ${{github.workflow}} triggered by ${{github.actor}} with ${{github.event_name}} event ${github.}
+        run: echo Hello!!! from ${{github.workflow}} triggered by ${{github.actor}} with ${{github.event_name}} event 
       
       - name: install dependencies
         run: npm install 
