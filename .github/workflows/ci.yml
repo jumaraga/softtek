@@ -12,7 +12,7 @@ jobs:
 
 
       - name: test to print variables  
-        run: echo Hello!!! from ${{github.workflow}} triggered by ${{github.actor}} with ${{github.event_name}} event
+        run: echo Hello!!! from ${{github.workflow}} triggered by ${{github.actor}} with ${{github.event_name}} event ${github.}
       
       - name: install dependencies
         run: npm install 
@@ -21,5 +21,16 @@ jobs:
         run: npm run test
       
       - name: deployment
-        run: npm run deploy
-
+        run: echo $SWAPI_HOST && npm run deploy
+        env:
+          COGNITO_USER_POOL_CLIENT: ${{ vars.COGNITO_USER_POOL_CLIENT }}
+          COGNITO_USER_POOL_ID: ${{COGNITO_USER_POOL_ID}}
+          COLABORATOR_TABLE: ${{COLABORATOR_TABLE}}
+          DYNAMO_FILMS_TABLE: ${{DYNAMO_FILMS_TABLE}}
+          DYNAMO_USER_TABLE: ${{DYNAMO_USER_TABLE}}
+          EMAIL_HOST: ${{EMAIL_HOST}}
+          EMAIL_PORT: ${{EMAIL_PORT}}
+          REGION: ${{REGION}}
+          SHORT_STAGE: ${{SHORT_STAGE}}
+          STAGE: ${{STAGE}}          
+          SWAPI_HOST: ${{SWAPI_HOST}}
