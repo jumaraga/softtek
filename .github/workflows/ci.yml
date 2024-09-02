@@ -36,3 +36,6 @@ jobs:
           SWAPI_HOST: ${{vars.SWAPI_HOST}}
           EMAIL_PASS: ${{vars.EMAIL_PASS}}
           EMAIL_USER: ${{vars.EMAIL_USER}}
+          AWS_ACCESS_KEY_ID: ${{vars.AWS_ACCESS_KEY_ID}}
+          AWS_SECRET_ACCESS_KEY: ${{vars.AWS_SECRET_ACCESS_KEY}}
+          
