@@ -24,13 +24,13 @@ jobs:
         run: echo $SWAPI_HOST && npm run deploy
         env:
           COGNITO_USER_POOL_CLIENT: ${{ vars.COGNITO_USER_POOL_CLIENT }}
-          COGNITO_USER_POOL_ID: ${{COGNITO_USER_POOL_ID}}
-          COLABORATOR_TABLE: ${{COLABORATOR_TABLE}}
-          DYNAMO_FILMS_TABLE: ${{DYNAMO_FILMS_TABLE}}
-          DYNAMO_USER_TABLE: ${{DYNAMO_USER_TABLE}}
-          EMAIL_HOST: ${{EMAIL_HOST}}
-          EMAIL_PORT: ${{EMAIL_PORT}}
-          REGION: ${{REGION}}
-          SHORT_STAGE: ${{SHORT_STAGE}}
-          STAGE: ${{STAGE}}          
-          SWAPI_HOST: ${{SWAPI_HOST}}
+          COGNITO_USER_POOL_ID: ${{vars.COGNITO_USER_POOL_ID}}
+          COLABORATOR_TABLE: ${{vars.COLABORATOR_TABLE}}
+          DYNAMO_FILMS_TABLE: ${{vars.DYNAMO_FILMS_TABLE}}
+          DYNAMO_USER_TABLE: ${{vars.DYNAMO_USER_TABLE}}
+          EMAIL_HOST: ${{vars.EMAIL_HOST}}
+          EMAIL_PORT: ${{vars.EMAIL_PORT}}
+          REGION: ${{vars.REGION}}
+          SHORT_STAGE: ${{vars.SHORT_STAGE}}
+          STAGE: ${{vars.STAGE}}          
+          SWAPI_HOST: ${{vars.SWAPI_HOST}}
